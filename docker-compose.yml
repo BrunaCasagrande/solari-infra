@@ -1,0 +1,137 @@
+version: '3.8'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: kafdrop
+    restart: always
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKER_CONNECT: kafka:9092
+    depends_on:
+      - kafka
+
+  kafka-setup:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - kafka
+    entrypoint: [ "sh", "-c", "sleep 10 && kafka-topics --create --topic novo-pedido-queue --bootstrap-server kafka:9092 --replication-factor 1 --partitions 1 || true" ]
+
+  solari_client_db:
+    image: mysql:latest
+    container_name: solari_client_db
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_client_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_client_data:/var/lib/mysql
+
+  solari_product_db:
+    image: mysql:latest
+    container_name: solari_product_db
+    restart: always
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_product_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_product_data:/var/lib/mysql
+
+  solari_inventory_db:
+    image: mysql:latest
+    container_name: solari_inventory_db
+    restart: always
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_inventory_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_inventory_data:/var/lib/mysql
+
+  solari_order_db:
+    image: mysql:latest
+    container_name: solari_order_db
+    restart: always
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_order_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_order_data:/var/lib/mysql
+
+  solari_order_receiver_db:
+    image: mysql:latest
+    container_name: solari_order_receiver_db
+    restart: always
+    ports:
+      - "3311:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_order_receiver_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_order_receiver_data:/var/lib/mysql
+
+  solari_payment_db:
+    image: mysql:latest
+    container_name: solari_payment_db
+    restart: always
+    ports:
+      - "3312:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: senha
+      MYSQL_DATABASE: solari_payment_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    volumes:
+      - solari_payment_data:/var/lib/mysql
+
+volumes:
+  solari_client_data:
+  solari_product_data:
+  solari_inventory_data:
+  solari_order_data:
+  solari_order_receiver_data:
+  solari_payment_data:
