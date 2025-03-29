@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "0b85ee41-7511-4d0e-aa4f-22b4d24021c4",
+		"name": "Solari",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20952383"
+	},
+	"item": [
+		{
+			"name": "client-service",
+			"item": [
+				{
+					"name": "create client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Bruna Casagrande\",\r\n  \"cpf\": \"12345678900\",\r\n  \"phoneNumber\": \"+5511999999999\",\r\n  \"email\": \"bruna@example.com\",\r\n  \"password\": \"Senha@123\",\r\n  \"address\": {\r\n    \"street\": \"Rua das Flores\",\r\n    \"number\": \"123\",\r\n    \"city\": \"São Paulo\",\r\n    \"state\": \"SP\",\r\n    \"zipCode\": \"01234-567\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/solari/v1/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "get client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/solari/v1/clients/12345678900"
+					},
+					"response": []
+				},
+				{
+					"name": "update client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 10,\r\n  \"name\": \"Bruna Casagrande Z.\",\r\n  \"cpf\": \"12345678900\",\r\n  \"phoneNumber\": \"+5511988887777\",\r\n  \"email\": \"bruna_z@example.com\",\r\n  \"password\": \"NovaSenha@123\",\r\n  \"address\": {\r\n    \"id\": 2,\r\n    \"street\": \"Rua Atualizada\",\r\n    \"number\": \"456\",\r\n    \"city\": \"Campinas\",\r\n    \"state\": \"SP\",\r\n    \"zipCode\": \"13000-000\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/solari/v1/clients/12345678900"
+					},
+					"response": []
+				},
+				{
+					"name": "delete client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/solari/v1/clients/12345678900"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
