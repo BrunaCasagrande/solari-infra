@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "0b85ee41-7511-4d0e-aa4f-22b4d24021c4",
+		"_postman_id": "efcbf1f3-9306-4ce9-be56-fd2330037815",
 		"name": "Solari",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "20952383"
+		"_exporter_id": "42592767"
 	},
 	"item": [
 		{
@@ -60,6 +60,32 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "http://localhost:8080/solari/v1/clients/12345678900"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order-receiver-service",
+			"item": [
+				{
+					"name": "place order",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"products\": {\r\n    \"123123\": 2,\r\n    \"456456\": 1,\r\n    \"78978978\": 3\r\n  },\r\n  \"clientId\": 456,\r\n  \"paymentData\": {\r\n    \"paymentMethod\" : \"CREDIT_CARD\",\r\n    \"creditCardNumber\" : \"123456789\"\r\n  } \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8081/solari/v1/order"
 					},
 					"response": []
 				}
