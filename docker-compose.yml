@@ -100,20 +100,6 @@ services:
     volumes:
       - solari_order_data:/var/lib/mysql
 
-  solari_order_receiver_db:
-    image: mysql:latest
-    container_name: solari_order_receiver_db
-    restart: always
-    ports:
-      - "3311:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: senha
-      MYSQL_DATABASE: solari_order_receiver_db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: senha
-    volumes:
-      - solari_order_receiver_data:/var/lib/mysql
-
   solari_payment_db:
     image: mysql:latest
     container_name: solari_payment_db
@@ -133,5 +119,4 @@ volumes:
   solari_product_data:
   solari_inventory_data:
   solari_order_data:
-  solari_order_receiver_data:
   solari_payment_data:
