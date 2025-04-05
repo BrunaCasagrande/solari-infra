@@ -32,7 +32,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/solari/v1/clients/11111111111"
+						"url": "http://localhost:8080/solari/v1/clients/12345678900"
 					},
 					"response": []
 				},
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"products\": {\r\n    \"123123\": 2,\r\n    \"456456\": 1,\r\n    \"78978978\": 3\r\n  },\r\n  \"clientId\": 456,\r\n  \"paymentData\": {\r\n    \"paymentMethod\" : \"CREDIT_CARD\",\r\n    \"creditCardNumber\" : \"123456789\"\r\n  } \r\n}",
+							"raw": "{\r\n  \"products\": {\r\n    \"123123\": 2,\r\n    \"456456\": 1,\r\n    \"78978978\": 3\r\n  },\r\n  \"cpf\": \"12345678900\",\r\n  \"paymentData\": {\r\n    \"paymentMethod\" : \"CREDIT_CARD\",\r\n    \"creditCardNumber\" : \"123456789\"\r\n  } \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,6 +145,94 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "http://localhost:8083/solari/v1/products/999993"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "order-service",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8082/solari/v1/order"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inventory-service",
+			"item": [
+				{
+					"name": "create inventory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sku\": \"12345\",\r\n  \"quantity\": 13\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8084/solari/v1/inventory"
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8084/solari/v1/inventory/id/2"
+					},
+					"response": []
+				},
+				{
+					"name": "get by sku",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8084/solari/v1/inventory/sku/12345"
+					},
+					"response": []
+				},
+				{
+					"name": "update inventory",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quantity\": -100\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8084/solari/v1/inventory/sku/12345"
+					},
+					"response": []
+				},
+				{
+					"name": "delete inventory",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8084/solari/v1/inventory/1"
 					},
 					"response": []
 				}
