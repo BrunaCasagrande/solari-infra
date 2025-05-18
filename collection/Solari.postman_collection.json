@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "515cbf0f-8827-481e-ae73-e237f4095c74",
+		"_postman_id": "d80e676a-d3f3-41d7-bedc-cce88bcdd4d3",
 		"name": "Solari",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "42592767"
+		"_exporter_id": "20952383"
 	},
 	"item": [
 		{
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Junin\",\r\n  \"cpf\": \"11111111111\",\r\n  \"phoneNumber\": \"+5511999999000\",\r\n  \"email\": \"junin@example.com\",\r\n  \"password\": \"Senha@123\",\r\n  \"address\": {\r\n    \"street\": \"Rua das Flores\",\r\n    \"number\": \"123\",\r\n    \"city\": \"São Paulo\",\r\n    \"state\": \"SP\",\r\n    \"zipCode\": \"01234-567\"\r\n  }\r\n}\r\n",
+							"raw": "{\r\n  \"name\": \"Filipe teste\",\r\n  \"cpf\": \"11111111111\",\r\n  \"phoneNumber\": \"+5511999999000\",\r\n  \"email\": \"junin@example.com\",\r\n  \"password\": \"Senha@123\",\r\n  \"address\": {\r\n    \"street\": \"Rua das Flores\",\r\n    \"number\": \"123\",\r\n    \"city\": \"São Paulo\",\r\n    \"state\": \"SP\",\r\n    \"zipCode\": \"01234-567\"\r\n  }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"products\": {\r\n    \"123123\": 2,\r\n    \"456456\": 1,\r\n    \"78978978\": 3\r\n  },\r\n  \"cpf\": \"12345678900\",\r\n  \"paymentData\": {\r\n    \"paymentMethod\" : \"CREDIT_CARD\",\r\n    \"creditCardNumber\" : \"123456789\"\r\n  } \r\n}",
+							"raw": "{\r\n  \"products\": {\r\n    \"12345\": 1\r\n  },\r\n  \"cpf\": \"11111111111\",\r\n  \"paymentData\": {\r\n    \"paymentMethod\" : \"CREDIT_CARD\",\r\n    \"creditCardNumber\" : \"123456789\"\r\n  } \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -101,7 +101,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"name\": \"Camiseta Solari\",\r\n  \"description\": \"Camiseta 100% algodão, tamanho P\",\r\n  \"sku\": \"90001\", \r\n  \"price\": 89.90\r\n}",
+							"raw": "{\r\n  \"name\": \"brinco argola\",\r\n  \"description\": \"brinco de argola dourado\",\r\n  \"sku\": \"12345\", \r\n  \"price\": 150.95\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,7 +158,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8082/solari/v1/order/{id}"
+						"url": "http://localhost:8082/solari/v1/order/8f903a91-99d2-4f42-9c83-f1559880b655"
 					},
 					"response": []
 				}
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"quantity\": -100\r\n}\r\n",
+							"raw": "{\r\n  \"quantity\": -1000\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -233,6 +233,29 @@
 						"method": "DELETE",
 						"header": [],
 						"url": "http://localhost:8084/solari/v1/inventory/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment-service",
+			"item": [
+				{
+					"name": "create payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"token\": \"filipendshfgs\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8085/solari/v1/payments"
 					},
 					"response": []
 				}
