@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -102,6 +101,92 @@ services:
       MYSQL_PASSWORD: senha
     volumes:
       - solari_payment_data:/var/lib/mysql
+  solari-client-service:
+    image: brunaczaramela/solari-client:latest
+    container_name: solari_client_service
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://solari_client_db:3306/solari_client_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+    depends_on:
+      - solari_client_db
+      - kafka
+  solari-inventory-service:
+    image: brunaczaramela/solari-inventory:latest
+    container_name: solari_inventory_service
+    restart: always
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://solari_inventory_db:3306/solari_inventory_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+    depends_on:
+      - solari_inventory_db
+      - kafka
+  solari-payment-service:
+    image: brunaczaramela/solari-payment:latest
+    container_name: solari_payment_service
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://solari_payment_db:3306/solari_payment_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+    depends_on:
+      - solari_payment_db
+      - kafka
+  solari-product-service:
+    image: brunaczaramela/solari-product:latest
+    container_name: solari_product_service
+    restart: always
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://solari_product_db:3306/solari_product_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+    depends_on:
+      - solari_product_db
+      - kafka
+  solari-order-receiver:
+    image: brunaczaramela/solari-order-receiver:latest
+    container_name: solari_order_receiver
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+  solari-order:
+    image: brunaczaramela/solari-order:latest
+    container_name: solari_order
+    restart: always
+    ports:
+      - "8082:8082"
+    environment:
+      DATASOURCE_URL: jdbc:mysql://solari_order_db:3306/solari_order_db
+      DATASOURCE_USER: user
+      DATASOURCE_PASS: senha
+      KAFKA_BASE_SERVER: kafka:9092
+      KAFKA_GROUP: my-group
+      KAFKA_TOPIC: novo-pedido-queue
+      URL_CLIENT: http://solari-client-service:8080/solari/v1/clients/
+      URL_PRODUCT: http://solari-product-service:8083/solari/v1/products/
+      URL_INVENTORY: http://solari-inventory-service:8084/solari/v1/inventory/
+      URL_PAYMENT: http://solari-payment-service:8085/solari/v1/payments
+    depends_on:
+      - solari_order_db
+      - kafka
+      - solari-client-service
+      - solari-product-service
+      - solari-inventory-service
+      - solari-payment-service
 
 volumes:
   solari_client_data:
